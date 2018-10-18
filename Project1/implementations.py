@@ -84,20 +84,11 @@ def logistic_regression_ridge(y, tx, max_iters):
     w = np.zeros([tx.shape[1], 1])
     step_size = 1 / (0.5 * np.max(np.linalg.eigvals(tx.T @ tx)))
     for i in range(max_iters):
-        print(i)
         w = w - step_size * grad_logistic(y, tx, w)  
     return w
 
 def grad_logistic(y, tx, w):
-    tx_w_multi = np.zeros([y.shape[0], 1])
-    for i in range(tx.shape[0]):
-        tx_w_multi[i] = tx[i, :] @ w
-    right = 1 - sigmoid_compute(y * tx_w_multi * y)
-    right = right.reshape(y.shape[0], 1)
-    left = -tx.T
-    result = np.zeros([w.shape[0], 1])
-    for i in range(w.shape[0]):
-        result[i] = np.sum(left[i, :].reshape(left.shape[1], 1) * right)
+    result = (-tx.T @ ((1 - sigmoid_compute(y * (tx @ (w)))) * y))
     return result
 
 def sigmoid_compute(x):
