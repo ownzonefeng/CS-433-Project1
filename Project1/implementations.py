@@ -7,8 +7,7 @@ Created on Mon Oct 15 15:13:13 2018
 """
 
 import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
+
 
 def least_squares_GD(y, tx, initial_w, max_iters, gamma):
     """Gradient descent algorithm."""
@@ -25,10 +24,8 @@ def least_squares_GD(y, tx, initial_w, max_iters, gamma):
         # store w and loss
         ws.append(w)
         losses.append(loss)
-        print("Gradient Descent({bi}/{ti}): loss={l}, w0={w0}, w1={w1}".format(
-              bi=n_iter, ti=max_iters - 1, l=loss, w0=w[0], w1=w[1]))
 
-    return losses, ws
+    return losses[-1], ws[-1]
 
 def compute_stoch_gradient(y, tx, w):
     """Compute a stochastic gradient from just few examples n and their corresponding y_n labels."""
@@ -56,9 +53,7 @@ def stochastic_gradient_descent(
             ws.append(w)
             losses.append(loss)
 
-        print("SGD({bi}/{ti}): loss={l}, w0={w0}, w1={w1}".format(
-              bi=n_iter, ti=max_iters - 1, l=loss, w0=w[0], w1=w[1]))
-    return losses, ws
+    return losses[-1], ws[-1]
 
 def batch_iter(y, tx, batch_size, num_batches=1, shuffle=True):
     """
@@ -84,6 +79,43 @@ def batch_iter(y, tx, batch_size, num_batches=1, shuffle=True):
         end_index = min((batch_num + 1) * batch_size, data_size)
         if start_index != end_index:
             yield shuffled_y[start_index:end_index], shuffled_tx[start_index:end_index]
+
+def logistic_regression_ridge(y, tx, max_iters):
+    w = np.zeros([tx.shape[1], 1])
+    step_size = 1 / (0.5 * np.max(np.linalg.eigvals(tx.T @ tx)))
+    for i in range(max_iters):
+        print(i)
+        w = w - step_size * grad_logistic(y, tx, w)  
+    return w
+
+def grad_logistic(y, tx, w):
+    tx_w_multi = np.zeros([y.shape[0], 1])
+    for i in range(tx.shape[0]):
+        tx_w_multi[i] = tx[i, :] @ w
+    right = 1 - sigmoid_compute(y * tx_w_multi * y)
+    right = right.reshape(y.shape[0], 1)
+    left = -tx.T
+    result = np.zeros([w.shape[0], 1])
+    for i in range(w.shape[0]):
+        result[i] = np.sum(left[i, :].reshape(left.shape[1], 1) * right)
+    return result
+
+def sigmoid_compute(x):
+    
+    return (1 / (1 + np.exp(-x)))
+
+def least_squares(y, tx):
+    """calculate the least squares solution."""
+    a = tx.T.dot(tx)
+    b = tx.T.dot(y)
+    return np.linalg.solve(a, b)
+
+def ridge_regression(y, tx, lamb):
+    """implement ridge regression."""
+    aI = lamb * np.identity(tx.shape[1])
+    a = tx.T.dot(tx) + aI
+    b = tx.T.dot(y)
+    return np.linalg.solve(a, b)
             
 def compute_gradient(y, tx, w):
     """Compute the gradient."""
