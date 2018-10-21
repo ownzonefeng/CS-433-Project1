@@ -93,7 +93,7 @@ def grad_logistic(y, tx, w):
 
 def sigmoid_compute(x):
     
-    return (1 / (1 + np.exp(-x)))
+    return (1 / (1 + np.exp(-x))) * 2 - 1
 
 def least_squares(y, tx):
     """calculate the least squares solution."""
