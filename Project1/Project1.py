@@ -1,5 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.linear_model import LogisticRegressionCV
@@ -114,10 +113,10 @@ x_1 = poly.fit_transform(feature_1.drop(columns='Prediction'))
 x_2 = poly.fit_transform(feature_2.drop(columns='Prediction'))
 x_3 = poly.fit_transform(feature_3.drop(columns='Prediction'))
 
-clf_0 = LogisticRegressionCV(max_iter = 50000, cv = 6,n_jobs = -1, verbose=1, fit_intercept=False).fit(x_0, feature_0['Prediction'])
-clf_1 = LogisticRegressionCV(max_iter = 50000, cv = 6,n_jobs = -1, verbose=1, fit_intercept=False).fit(x_1, feature_1['Prediction'])
-clf_2 = LogisticRegressionCV(max_iter = 50000, cv = 6,n_jobs = -1, verbose=1, fit_intercept=False).fit(x_2, feature_2['Prediction'])
-clf_3 = LogisticRegressionCV(max_iter = 50000, cv = 6,n_jobs = -1, verbose=1, fit_intercept=False).fit(x_3, feature_3['Prediction'])
+clf_0 = LogisticRegressionCV(max_iter = 50000, cv = 4,n_jobs = -1, verbose=1, fit_intercept=False).fit(x_0, feature_0['Prediction'])
+clf_1 = LogisticRegressionCV(max_iter = 50000, cv = 4,n_jobs = -1, verbose=1, fit_intercept=False).fit(x_1, feature_1['Prediction'])
+clf_2 = LogisticRegressionCV(max_iter = 50000, cv = 4,n_jobs = -1, verbose=1, fit_intercept=False).fit(x_2, feature_2['Prediction'])
+clf_3 = LogisticRegressionCV(max_iter = 50000, cv = 4,n_jobs = -1, verbose=1, fit_intercept=False).fit(x_3, feature_3['Prediction'])
 
 test = pd.read_csv('test.csv', index_col= 0)
 
@@ -175,4 +174,4 @@ sub.loc[test_1.index,'Prediction'] = predict_label_1
 sub.loc[test_2.index,'Prediction'] = predict_label_2
 sub.loc[test_3.index,'Prediction'] = predict_label_3
 
-pd.DataFrame.to_csv(sub, 'subsssssss.csv')                           
+pd.DataFrame.to_csv(sub, 'sub_server.csv')                           
