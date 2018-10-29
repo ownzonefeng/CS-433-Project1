@@ -37,11 +37,12 @@ There are some functions designed by us  .
 ### `implementations.py`
 Contain the mandatory implementations of  6 regression models for this project
 - **`least_squares_GD`**: Linear regression using gradient descent
-- **`least_squares_SDG`**: Linear regression using stochastic gradient descent
+- **`stochastic_gradient_descent`**: Linear regression using stochastic gradient descent
 - **`least_squares`**: Least squares regression using normal equations
 - **`ridge_regression`**: Ridge regression using normal equations
-- **`logistic_regression`**: using stochastic gradient descent
-- **`regularized_logistic_regression`**: Regularized logistic regression
+- **`ridge_regression_cv`**: Ridge regression using normal equations with cross validations
+- **`logistic_regression`**: Logistic regression using gradient descent or Newton method 
+- **`ogistic_regression_penalized_gradient`**: Regularized logistic regression
 
 ### `run.py`
 Script that generates the exact CSV file submitted on Kaggle.
