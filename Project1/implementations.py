@@ -192,9 +192,10 @@ def least_squares(y, tx):
 """ridge regression with and without cross validation"""
 def ridge_regression(y, tx, lambda_):
     # calculate regularization coefficient
-    lambda_ = lambda_ * y.shape[0] * 2
-    w = np.linalg.inv((tx.T @ tx) + lambda_ * np.eye(8, dtype = 'int')) @ tx.T @ y
-    return w
+    aI = lambda_ * np.identity(tx.shape[1])
+    a = tx.T.dot(tx) + aI
+    b = tx.T.dot(y)
+    return np.linalg.solve(a, b)
             
 def ridge_regression_cv(y, tx, lamb, k_indices, k_fold):
     w = np.zeros((tx.shape[1], k_fold))# store w for each CV set
@@ -214,7 +215,7 @@ def ridge_regression_cv(y, tx, lamb, k_indices, k_fold):
         train_predict_label = binary_label(train_predict_label)
         # calculate the percentage of right prediction
         # comprehensive scores: 1/3 correct rate on train set + 2/3 correct rate on test set
-        comb_right_rate = (2 * calculate_right_rate(y_train, train_predict_label) + calculate_right_rate(y_k_test, test_predict_label)) / 3
+        comb_right_rate = (1 * calculate_right_rate(y_train, train_predict_label) + 2 * calculate_right_rate(y_k_test, test_predict_label)) / 3
         right_rate.append(comb_right_rate)
     # find the best w
     best_k = right_rate.index(max(right_rate))
