@@ -14,7 +14,7 @@ from Myhelper import *
 def logistic_regression_penalized_gradient(y, tx, max_iter):
     # set initial parameters
     gamma = 1 / (0.5 * np.max(np.linalg.eigvals(tx.T @ tx)))
-    lambda_ = 0.1
+    lambda_ = 0.01
     threshold = 1e-8
     losses = [100]
     # build initial weights
@@ -118,6 +118,7 @@ def least_squares_GD(y, tx, initial_w, max_iters, gamma):
         # update weights
         w = w - gamma * grad
         losses.append(loss)
+        ws.append(w)
     return losses[-1], ws[-1]
 
 def compute_gradient(y, tx, w):
