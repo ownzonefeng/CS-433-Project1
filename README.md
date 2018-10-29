@@ -6,59 +6,49 @@
 
 In this project, we aim to simulate the process of discovering the Higgs particle since Higgs particles are essential for explaining why other particles have mass. Our goal is to train a binary classifier by using given training set and then use the obtained model to predict whether an event was signal (a Higgs boson) or a background (something else). We used the logistic regression model and the ridge regression model to predict on the test set and achieved the highest accuracy of 0.831 and 0.822 respectively. In the final, we chose to submit the ridge regression model since it has reasonable computing time and acceptable accuracy.
 
-** Instrcutions **:
+**Instructions**:
 1. Please make sure the newest `Numpy` is installed. `NumPy` is the only required external package in this project.
 2. Download `train.csv` and `test.csv` from [Kaggle competition](https://www.kaggle.com/c/epfml18-higgs/data), and put them in the same folder as `run.py`
 3. Run `run.py`
 
 
 
-Here below are the brief overviews of the python scripts we used in this project. To see more information and detail about our project, go to [PDF report](#) in this repository.
+The followings are some descriptions for the modules or functions we used or designed for this project.
 
 
 ## External modules
 ### `proj1_helpers.py`
-Contains the helper functions that are used to load data, generate the predictions and output the result to csv file as submission file in Kaggle's format
+In this file, the contest holders provide functions to load data, make predictions with the model as one parameter and generate the qualified submission file.
 
-### `tool.py`
-Contain the hepler functions for main regression models and finding-hyperparameter methods  .
-- **`build_polynomial_features`, `standardize`, `replace_missing_data_by_frequent_value`, `process_data` and `group_features_by_jet`**: Pre-process the raw dataset to generate desired features for training and prediction steps. 
-- **`compute_accuracy`, `build_k_indices`**: Computes the accuracy for cross validation step
-- **`compute_gradient`**: Computes the gradient for gradient descent and stochastic gradient descent
-- **`batch_iter`**: Generate a minibatch iterator for a dataset
+### `Myhelper.py`
+There are some functions designed by us.
+- **`cross_validation_set`**: Generate cross-validation sets. `Input`: labels, features, randomly permutated indices, and k folds. `Return`: train set of labels, train set of features, test set of labels, test set of features.
+- **`build_k_indices`**: Generate randomly permutated indices  `Input`: labels, the number of folds. `Return`: indices
+- **`calculate_right_rate`**: Calculate the percentage of corrected prediction. Input: original labels, predicted labels. `Return`: the right rate.
+- **`binary_label`**: Generate binary labels. For example, when the predicted is greater than the threshold, then we set the label 1. `Input`: predicted values. `Return`: processed labels.
+- **`log_normal`**: Apply log scale and standard normalisation to the feature. When the feature is greater than 0, we use log scale. Otherwise, we use standard normalisation. `Input`: features. `Return`: processed features.
+- **`calculate_mse`**: Calculate the mean square error. `Input`: the gap between the observed values and the predicted values. `Return`: mean square error.
+- **`calculate_mae`**: Calculate the mean average error. `Input`: the gap between the observed values and the predicted values. `Return`: mean average error.
+- **`compute_loss`**: Calculate the MSE using observed values, features, and models. `Input`: labels, features, weights. `Return` mean square error.
+- **`build_poly_feature`**: build the polynomial features for degree = 3. `Input`: features. `Return`: polynomial features.
+- **`calculate_combination`**: calculate the number of results when choosing y items from x items. `Input`: the number of total items, the number of items people want to pick. `Return`: the number of all possible combinations.
 
-### `costs.py`
-Contain 3 auxiliary functions and 2 different cost functions
-- **`calculate_mse`**: Compute mean square error, an auxiliary function of compute_loss
-- **`calculate_mae`**: Compute mean absolute error, an auxiliary function of compute_loss
-- **`compute_loss`**: Compute loss for regression model
-- **`sigmoid`**:  An auxiliary function of compute_loss_neg_log_likelihood
-- **`compute_loss_neg_log_likelihood`**:  Compute negative log likelihood for logistic regression
-
-### `lr_helper.py`
-A python file that contains helper functions required for regularized logistic regression which is implemented in `lr.ipynb`.
-
-## Algorithms for Regression 
 ### `implementations.py`
 Contain the mandatory implementations of  6 regression models for this project
+
+**Algorithms for Regression**
 - **`least_squares_GD`**: Linear regression using gradient descent
-- **`least_squares_SDG`**: Linear regression using stochastic gradient descent
+- **`stochastic_gradient_descent`**: Linear regression using stochastic gradient descent
 - **`least_squares`**: Least squares regression using normal equations
 - **`ridge_regression`**: Ridge regression using normal equations
-- **`logistic_regression`**: using stochastic gradient descent
-- **`regularized_logistic_regression`**: Regularized logistic regression
+- **`ridge_regression_cv`**: Ridge regression using normal equations with cross validations
+- **`logistic_regression`**: Logistic regression using gradient descent or Newton method 
+- **`logistic_regression_penalized_gradient`**: Regularized logistic regression
 
 ### `run.py`
 Script that generates the exact CSV file submitted on Kaggle.
 
-## Others 
-### `grid_search_for_param.ipynb`
-A python notebook used for finding the best hyperparameters by running cross-validation
-### `ML_Project1_Analysis_Notebook.ipynb`
-A python notebook used for doing some feature engineering tests and finding the best method to do the final prediction by implementing cross validation for all 6 methods and comparing the average test accuracy
-### `lr.ipynb`
-#### Regularized Logistic Regression Mentioned in the Report
-A python notebook that includes the steps of pre-processing data, creating model and making predictions related to regularized logistic regression.
+
 
 
 
