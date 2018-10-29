@@ -6,7 +6,7 @@
 
 In this project, we aim to simulate the process of discovering the Higgs particle since Higgs particles are essential for explaining why other particles have mass. Our goal is to train a binary classifier by using given training set and then use the obtained model to predict whether an event was signal (a Higgs boson) or a background (something else). We used the logistic regression model and the ridge regression model to predict on the test set and achieved the highest accuracy of 0.831 and 0.822 respectively. In the final, we chose to submit the ridge regression model since it has reasonable computing time and acceptable accuracy.
 
-## Instrcutions:
+** Instrcutions **:
 1. Please make sure the newest `Numpy` is installed. `NumPy` is the only required external package in this project.
 2. Download `train.csv` and `test.csv` from [Kaggle competition](https://www.kaggle.com/c/epfml18-higgs/data), and put them in the same folder as `run.py`
 3. Run `run.py`
