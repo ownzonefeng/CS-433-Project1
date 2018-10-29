@@ -56,7 +56,7 @@ def calculate_mse(e):
 def calculate_mae(e):
     return np.mean(np.abs(e))
 
-"""Calculate the mse"""
+"""Calculate the mse using observed value, features, and models"""
 def compute_loss(y, tx, w):
     L = 0.5 * np.mean((y - tx @ w) ** 2, axis = 0)
     return L
