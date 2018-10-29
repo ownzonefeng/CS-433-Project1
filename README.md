@@ -34,16 +34,16 @@ There are some functions designed by us  .
 - **`calculate_combination`**: calculate the number of results when choosing y items from x items. `Input`: the number of total items, the number of items people want to pick. `Return`: the number of all possible combinations.
 
 ### `implementations.py`
-**Algorithms for Regression**
-
 Contain the mandatory implementations of  6 regression models for this project
+
+**Algorithms for Regression**
 - **`least_squares_GD`**: Linear regression using gradient descent
 - **`stochastic_gradient_descent`**: Linear regression using stochastic gradient descent
 - **`least_squares`**: Least squares regression using normal equations
 - **`ridge_regression`**: Ridge regression using normal equations
 - **`ridge_regression_cv`**: Ridge regression using normal equations with cross validations
 - **`logistic_regression`**: Logistic regression using gradient descent or Newton method 
-- **`ogistic_regression_penalized_gradient`**: Regularized logistic regression
+- **`logistic_regression_penalized_gradient`**: Regularized logistic regression
 
 ### `run.py`
 Script that generates the exact CSV file submitted on Kaggle.
