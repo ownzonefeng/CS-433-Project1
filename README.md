@@ -35,6 +35,7 @@ There are some functions designed by us  .
 
 ### `implementations.py`
 **Algorithms for Regression**
+
 Contain the mandatory implementations of  6 regression models for this project
 - **`least_squares_GD`**: Linear regression using gradient descent
 - **`stochastic_gradient_descent`**: Linear regression using stochastic gradient descent
