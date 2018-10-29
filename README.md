@@ -22,19 +22,19 @@ In this file, the contest holders provide functions to load data, make predictio
 
 ### `Myhelper.py`
 There are some functions designed by us  .
-- **`cross_validation_set`**: Generate cross validation sets. Input: labels, features, randomly permutated indices and k folds. Return: train set of labels, train set of features, test set of labels, test set of features.
-- **`build_k_indices`**: Generate randomly permutated indecies  Input: labels, the number of folds. Return: indices
-- **`calculate_right_rate`**: Calculate the percentage of corrected prediction. Input: original labels, predicted labels. Return: the right rate.
-- **`binary_label`**: Generate binary labels. For example, when the predicted is greater than threshold, then we set the label 1. Input: predicted values. Return: processed labels.
-- **`log_normal`**: Apply log scale and standard normalisation to the feature. When the feature is greater than 0, we use log scale. Otherwise, we use standard normalisation. Input: features. Return: processed features.
-- **`calculate_mse`**: Calculate the mean square error. Input: the gap between observed value and the predicted value. Return: mean square error.
-- **`calculate_mae`**: Calculate the mean average error. Input: the gap between observed value and the predicted value. Return: mean average error.
-- **`compute_loss`**: Calculate the mse using observed value, features, and models. Input: labels, features, weights. Return mean square error.
-- **`build_poly_feature`**: build the polynomial features for degree = 3. Input: features. Return: polynomial features.
-- **`calculate_combination`**: calculate the number of results when choosing y items from x items. Input: the number of total items, the number of items people want to pick. Return: the number of all possible combinations.
+- **`cross_validation_set`**: Generate cross validation sets. `Input`: labels, features, randomly permutated indices and k folds. `Return`: train set of labels, train set of features, test set of labels, test set of features.
+- **`build_k_indices`**: Generate randomly permutated indecies  `Input`: labels, the number of folds. `Return`: indices
+- **`calculate_right_rate`**: Calculate the percentage of corrected prediction. Input: original labels, predicted labels. `Return`: the right rate.
+- **`binary_label`**: Generate binary labels. For example, when the predicted is greater than threshold, then we set the label 1. `Input`: predicted values. `Return`: processed labels.
+- **`log_normal`**: Apply log scale and standard normalisation to the feature. When the feature is greater than 0, we use log scale. Otherwise, we use standard normalisation. `Input`: features. `Return`: processed features.
+- **`calculate_mse`**: Calculate the mean square error. `Input`: the gap between observed value and the predicted value. `Return`: mean square error.
+- **`calculate_mae`**: Calculate the mean average error. `Input`: the gap between observed value and the predicted value. `Return`: mean average error.
+- **`compute_loss`**: Calculate the mse using observed value, features, and models. `Input`: labels, features, weights. `Return` mean square error.
+- **`build_poly_feature`**: build the polynomial features for degree = 3. `Input`: features. `Return`: polynomial features.
+- **`calculate_combination`**: calculate the number of results when choosing y items from x items. `Input`: the number of total items, the number of items people want to pick. `Return`: the number of all possible combinations.
 
-## Algorithms for Regression 
 ### `implementations.py`
+**Algorithms for Regression**
 Contain the mandatory implementations of  6 regression models for this project
 - **`least_squares_GD`**: Linear regression using gradient descent
 - **`stochastic_gradient_descent`**: Linear regression using stochastic gradient descent
