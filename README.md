@@ -29,6 +29,9 @@ There are some functions designed by us  .
 - **`log_normal`**: Apply log scale and standard normalisation to the feature. When the feature is greater than 0, we use log scale. Otherwise, we use standard normalisation. Input: features. Return: processed features.
 - **`calculate_mse`**: Calculate the mean square error. Input: the gap between observed value and the predicted value. Return: mean square error.
 - **`calculate_mae`**: Calculate the mean average error. Input: the gap between observed value and the predicted value. Return: mean average error.
+- **`compute_loss`**: Calculate the mse using observed value, features, and models. Input: labels, features, weights. Return mean square error.
+- **`build_poly_feature`**: build the polynomial features for degree = 3. Input: features. Return: polynomial features.
+- **`calculate_combination`**: calculate the number of results when choosing y items from x items. Input: the number of total items, the number of items people want to pick. Return: the number of all possible combinations.
 
 ## Algorithms for Regression 
 ### `implementations.py`
