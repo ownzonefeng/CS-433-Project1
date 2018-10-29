@@ -37,13 +37,13 @@ There are some functions designed by us.
 Contain the mandatory implementations of  6 regression models for this project
 
 **Algorithms for Regression**
-- **`least_squares_GD`**: Linear regression using gradient descent. `input`: labels, features, initial weights, the maximum number of iterations, the step size. `Return`: the final error, the model(the weights).
+- **`least_squares_GD`**: Linear regression using gradient descent. `Input`: labels, features, initial weights, the maximum number of iterations, the step size. `Return`: the final error, the model(the weights).
 - **`stochastic_gradient_descent`**: Linear regression using stochastic gradient descent. `Input`: labels, features, initial weights, batch size, the maximum number of iterations, the step size. `Return`: the final error, the model(the weights).
 - **`least_squares`**: Least squares regression using normal equations. `Input`: labels, features. `Return`: weights.
 - **`ridge_regression`**: Ridge regression using normal equations. `Input`: labels, features, regularisation parameter. `Return`: weights.
 - **`ridge_regression_cv`**: Ridge regression using normal equations with cross validations. `Input`: labels, features, regularisation parameter, CV indices, the number of fold. `Return`: weights, correct rate.
-- **`logistic_regression`**: Logistic regression using gradient descent or Newton method  `Input`: 
-- **`logistic_regression_penalized_gradient`**: Regularized logistic regression
+- **`logistic_regression`**: Logistic regression using gradient descent or Newton method. `Input`: labels, features, the maximum number of iterations. `Return`: loss, weight.
+- **`logistic_regression_penalized_gradient`**: Regularized logistic regression. `Input`: labels, features, the maximum number of iterations. `Return`: loss, weight.
 
 ### `run.py`
 Contains full process of feature processing, model construction, and prediction. It generates the exact same CSV file submitted on Kaggle.
