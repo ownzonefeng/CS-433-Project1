@@ -7,57 +7,126 @@ Created on Mon Oct 15 15:13:13 2018
 """
 
 import numpy as np
+from Myhelper import *
 
-def np_drop(feature, index, axis):
-    feature_selected = np.delete(feature, index, axis = axis)
-    return feature_selected
+####################################################################################
+"""logistic regression in Newton method with penalty """
+def logistic_regression_penalized_gradient(y, tx, max_iter):
+    # set initial parameters
+    gamma = 1 / (0.5 * np.max(np.linalg.eigvals(tx.T @ tx)))
+    lambda_ = 0.1
+    threshold = 1e-8
+    losses = [100]
+    # build initial weights
+    w = np.zeros((tx.shape[1], 1))
 
+    # start the logistic regression
+    for iter in range(max_iter):
+        # get loss and update w.
+        loss, w = learning_by_penalized_gradient(y, tx, w, gamma, lambda_)
+        losses.append(loss)
+        if iter % 100 == 0:
+            print('iter:', iter,'loss:',loss)
+        # converge criterion
+        losses.append(loss)
+        if len(losses) > 1 and np.abs(losses[-1] - losses[-2]) < threshold:
+            break
+        losses.pop(0)
+    return losses[-1], w
 
-def np_count(feature_selected):
-    feature_number = feature_selected.shape[0]
-    return feature_number
+def penalized_logistic_regression(y, tx, w, lambda_):
+    # calculate loss
+    loss = calculate_logistic_loss(y, tx, w) + (np.linalg.norm(w, 2) ** 2) * lambda_ / 2
+    # calculate gradient
+    gradient = calculate_gradient(y, tx, w) + lambda_ * w
+    # calculate hessian
+    hessian = calculate_hessian(y, tx, w) + lambda_
+    return loss, gradient, hessian
 
-def np_replace(feature_selected, to_be_replaced, replacement):
-    feature_selected[np.where(feature_selected == to_be_replaced)] = replacement
-    return feature_selected
+def learning_by_penalized_gradient(y, tx, w, gamma, lambda_):
+    loss, gradient, hessian = penalized_logistic_regression(y, tx, w, lambda_)
+    # update w
+    w = w - gamma * np.linalg.inv(hessian) @ gradient
+    return loss, w
 
-def np_describe(feature_selected):
-    describe = np.zeros([8, feature_selected.shape[1]])
-    describe[0, :] = np.sum(np.ones_like(feature_selected), axis = 0)
-    describe[1, :] = np.mean(feature_selected, axis = 0)
-    describe[2, :] = np.std(feature_selected, axis = 0)
-    describe[3, :] = np.min(feature_selected, axis = 0)
-    describe[4, :] = np.percentile(feature_selected, 25, axis=0)
-    describe[5, :] = np.percentile(feature_selected, 50, axis=0)
-    describe[6, :] = np.percentile(feature_selected, 75, axis=0)
-    describe[7, :] = np.max(feature_selected, axis=0)
-    return describe
+####################################################################################
+"""logistic regression in gradient method and Newton method without penalty"""
+def logistic_regression(y, tx, max_iter):
+    # init parameters
+    threshold = 0.0001
+    w = np.zeros((tx.shape[1], 1))
+    losses = [100]
+    # calculate proper step size (with the reference of EE-556 slides)
+    gamma = 1 / (0.5 * np.max(np.linalg.eigvals(tx.T @ tx)))
+    print('stepsize:', gamma)
+    for iter in range(max_iter):
+        # get loss and update w.
+        loss, w = learning_by_gradient_descent(y, tx, w, gamma)
+        # converge criterion
+        losses.append(loss)
+        if iter % 100 == 0:
+            print('iter:', iter,'loss:',loss)
+        if len(losses) > 1 and np.abs(losses[-1] - losses[-2]) < threshold:
+            break
+        losses.pop(0)
+    return losses[-1], w
 
+def sigmoid(t):
+    return (1 / (1 + np.exp(-t)))
 
+def calculate_logistic_loss(y, tx, w):
+    L = np.sum(np.log(1 + np.exp(tx @ w)) - y * (tx @ w))
+    return L
+
+def calculate_gradient(y, tx, w):
+    gradient_L = tx.T @ (sigmoid(tx @ w) - y)
+    return gradient_L
+
+def learning_by_gradient_descent(y, tx, w, gamma):
+    loss = calculate_logistic_loss(y, tx, w)
+    gradient = calculate_gradient(y, tx, w)
+    w = w - gamma * gradient
+    return loss, w
+
+def calculate_hessian(y, tx, w):
+    s = sigmoid(tx @ w) * (1 - sigmoid(tx @ w))
+    s_diag = np.diag(s[:,0])
+    hessian = tx.T @ s_diag @ tx
+    return hessian
+
+def learning_by_newton_method(y, tx, w, gamma):
+    hessian = calculate_hessian(y, tx, w)
+    gradient = calculate_gradient(y, tx, w)
+    w = w - gamma * np.linalg.inv(hessian) @ gradient
+    loss = calculate_logistic_loss(y, tx, w)
+    return loss, w
+
+####################################################################################
+"""least squares gradient descent"""
 def least_squares_GD(y, tx, initial_w, max_iters, gamma):
-    """Gradient descent algorithm."""
     # Define parameters to store w and loss
     ws = [initial_w]
     losses = []
+    # set initial w
     w = initial_w
     for n_iter in range(max_iters):
-        # compute loss, gradient
-        grad, err = compute_gradient(y, tx, w)
-        loss = calculate_mse(err)
-        # gradient w by descent update
+        # calculate error
+        e = y - tx @ w
+        # calculate mse
+        loss = 0.5 * np.mean((y - tx @ w) ** 2, axis = 0)
+        grad = -1 * tx.T @ e / tx.shape[0]
+        # update weights
         w = w - gamma * grad
-        # store w and loss
-        ws.append(w)
         losses.append(loss)
-
     return losses[-1], ws[-1]
 
-def compute_stoch_gradient(y, tx, w):
-    """Compute a stochastic gradient from just few examples n and their corresponding y_n labels."""
+def compute_gradient(y, tx, w):
     err = y - tx.dot(w)
     grad = -tx.T.dot(err) / len(err)
     return grad, err
 
+####################################################################################
+"""stochastic_gradient_descent"""
 def stochastic_gradient_descent(
         y, tx, initial_w, batch_size, max_iters, gamma):
     """Stochastic gradient descent."""
@@ -65,22 +134,30 @@ def stochastic_gradient_descent(
     ws = [initial_w]
     losses = []
     w = initial_w
-    
     for n_iter in range(max_iters):
-        for y_batch, tx_batch in batch_iter(y, tx, batch_size=batch_size, num_batches=1):
-            # compute a stochastic gradient and loss
-            grad, _ = compute_stoch_gradient(y_batch, tx_batch, w)
-            # update w through the stochastic gradient update
-            w = w - gamma * grad
-            # calculate loss
-            loss = compute_loss(y, tx, w)
-            # store w and loss
-            ws.append(w)
-            losses.append(loss)
-
+        iter = batch_iter(y, tx, batch_size, num_batches=1, shuffle=True)
+        for j in iter:
+                info = j
+        # fetch stochastic point to calculate gradient
+        y_n = info[0]
+        tx_n = info[1]
+        stoch_grad = compute_stoch_gradient(y_n, tx_n, w)
+        # update w through the stochastic gradient update
+        w = w - gamma * stoch_grad
+        # calculate loss
+        loss = 0.5 * np.mean((y - tx @ w) ** 2, axis = 0)
+        # store w and loss
+        ws.append(w)
+        losses.append(loss)
     return losses[-1], ws[-1]
 
+def compute_stoch_gradient(y, tx, w):
+    e = y -tx @ w
+    stoch_grad = -1 * tx.T * e
+    return stoch_grad
+
 def batch_iter(y, tx, batch_size, num_batches=1, shuffle=True):
+    #With the reference of lab helper
     """
     Generate a minibatch iterator for a dataset.
     Takes as input two iterables (here the output desired values 'y' and the input data 'tx')
@@ -105,58 +182,42 @@ def batch_iter(y, tx, batch_size, num_batches=1, shuffle=True):
         if start_index != end_index:
             yield shuffled_y[start_index:end_index], shuffled_tx[start_index:end_index]
 
-def logistic_regression_ridge(y, tx, max_iters):
-    w = np.zeros([tx.shape[1], 1])
-    step_size = 1 / (0.5 * np.max(np.linalg.eigvals(tx.T @ tx)))
-    for i in range(max_iters):
-        w = w - step_size * grad_logistic(y, tx, w)  
+####################################################################################
+"""least squares method"""
+def least_squares(y, tx):
+    w = np.linalg.inv(tx.T @ tx) @ tx.T @ y
     return w
 
-def grad_logistic(y, tx, w):
-    result = (-tx.T @ ((1 - sigmoid_compute(y * (tx @ (w)))) * y))
-    return result
-
-def sigmoid_compute(x):
-    
-    return (1 / (1 + np.exp(-x))) * 2 - 1
-
-def least_squares(y, tx):
-    """calculate the least squares solution."""
-    a = tx.T.dot(tx)
-    b = tx.T.dot(y)
-    return np.linalg.solve(a, b)
-
-def ridge_regression(y, tx, lamb):
-    """implement ridge regression."""
-    aI = lamb * np.identity(tx.shape[1])
-    a = tx.T.dot(tx) + aI
-    b = tx.T.dot(y)
-    return np.linalg.solve(a, b)
+####################################################################################
+"""ridge regression with and without cross validation"""
+def ridge_regression(y, tx, lambda_):
+    # calculate regularization coefficient
+    lambda_ = lambda_ * y.shape[0] * 2
+    w = np.linalg.inv((tx.T @ tx) + lambda_ * np.eye(8, dtype = 'int')) @ tx.T @ y
+    return w
             
-def compute_gradient(y, tx, w):
-    """Compute the gradient."""
-    err = y - tx.dot(w)
-    grad = -tx.T.dot(err) / len(err)
-    return grad, err
-
-def calculate_mse(e):
-    """Calculate the mse for vector e."""
-    return 1/2*np.mean(e**2)
-
-
-def calculate_mae(e):
-    """Calculate the mae for vector e."""
-    return np.mean(np.abs(e))
-
-
-def compute_loss(y, tx, w, method):
-    """Calculate the loss.
-
-    You can calculate the loss using mse or mae.
-    """
-    e = y - tx.dot(w)
-    if method == 'mse':
-        return calculate_mse(e)
-    else:
-        return calculate_mae(e)
+def ridge_regression_cv(y, tx, lamb, k_indices, k_fold):
+    w = np.zeros((tx.shape[1], k_fold))# store w for each CV set
+    right_rate = []# store the correct rate of every validation
+    for k in range(k_fold):
+        # generate train set and test set
+        y_train, x_train, y_k_test, x_k_test = cross_validation_set(y, tx, k_indices, k)
+        # train model
+        w[:, k] = ridge_regression(y_train, x_train, lamb)
+        # predict on the test set
+        test_predict_label = x_k_test @ w[:, k]
+        # correcting the labels
+        test_predict_label = binary_label(test_predict_label)
+        # predict the labels on train set
+        train_predict_label = x_train @ w[:, k]
+        # correcting the labels
+        train_predict_label = binary_label(train_predict_label)
+        # calculate the percentage of right prediction
+        # comprehensive scores: 1/3 correct rate on train set + 2/3 correct rate on test set
+        comb_right_rate = (2 * calculate_right_rate(y_train, train_predict_label) + calculate_right_rate(y_k_test, test_predict_label)) / 3
+        right_rate.append(comb_right_rate)
+    # find the best w
+    best_k = right_rate.index(max(right_rate))
+    best_w = w[:, best_k]
+    return best_w, max(right_rate)
 

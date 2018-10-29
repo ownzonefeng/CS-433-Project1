@@ -1,2 +1,64 @@
-# Machine Learning-Project
-## The first project of Machine Learning(CS-433) of EPFL
+# EPFL - Machine Learning Project 1 
+
+**`Team`:** HuoGuo_Fondue
+
+**`Team Members`:** FENG Wentao, WANG Yunbei, ZHUANG Ying
+
+In this project, we aim to simulate the process of discovering the Higgs particle since Higgs particles are essential for explaining why other particles have mass. Our goal is to train a binary classifier by using given training set and then use the obtained model to predict whether an event was signal (a Higgs boson) or a background (something else). We used the logistic regression model and the ridge regression model to predict on the test set and achieved the highest accuracy of 0.831 and 0.822 respectively. In the final, we chose to submit the ridge regression model since it has reasonable computing time and acceptable accuracy.
+
+1. Please make sure `Numpy` is installed. This is the only required 3rd party package in this project.
+2. Download `train.csv` and `test.csv` from [Kaggle competition](https://www.kaggle.com/c/epfml-higgs), and put them in the /data
+3. Run python script - `run.py`
+
+
+
+Here below are the brief overviews of the python scripts we used in this project. To see more information and detail about our project, go to [PDF report](#) in this repository.
+
+
+## Auxiliary modules
+### `proj1_helpers.py`
+Contains the helper functions that are used to load data, generate the predictions and output the result to csv file as submission file in Kaggle's format
+
+### `tool.py`
+Contain the hepler functions for main regression models and finding-hyperparameter methods  .
+- **`build_polynomial_features`, `standardize`, `replace_missing_data_by_frequent_value`, `process_data` and `group_features_by_jet`**: Pre-process the raw dataset to generate desired features for training and prediction steps. 
+- **`compute_accuracy`, `build_k_indices`**: Computes the accuracy for cross validation step
+- **`compute_gradient`**: Computes the gradient for gradient descent and stochastic gradient descent
+- **`batch_iter`**: Generate a minibatch iterator for a dataset
+
+### `costs.py`
+Contain 3 auxiliary functions and 2 different cost functions
+- **`calculate_mse`**: Compute mean square error, an auxiliary function of compute_loss
+- **`calculate_mae`**: Compute mean absolute error, an auxiliary function of compute_loss
+- **`compute_loss`**: Compute loss for regression model
+- **`sigmoid`**:  An auxiliary function of compute_loss_neg_log_likelihood
+- **`compute_loss_neg_log_likelihood`**:  Compute negative log likelihood for logistic regression
+
+### `lr_helper.py`
+A python file that contains helper functions required for regularized logistic regression which is implemented in `lr.ipynb`.
+
+## Algorithms for Regression 
+### `implementations.py`
+Contain the mandatory implementations of  6 regression models for this project
+- **`least_squares_GD`**: Linear regression using gradient descent
+- **`least_squares_SDG`**: Linear regression using stochastic gradient descent
+- **`least_squares`**: Least squares regression using normal equations
+- **`ridge_regression`**: Ridge regression using normal equations
+- **`logistic_regression`**: using stochastic gradient descent
+- **`regularized_logistic_regression`**: Regularized logistic regression
+
+### `run.py`
+Script that generates the exact CSV file submitted on Kaggle.
+
+## Others 
+### `grid_search_for_param.ipynb`
+A python notebook used for finding the best hyperparameters by running cross-validation
+### `ML_Project1_Analysis_Notebook.ipynb`
+A python notebook used for doing some feature engineering tests and finding the best method to do the final prediction by implementing cross validation for all 6 methods and comparing the average test accuracy
+### `lr.ipynb`
+#### Regularized Logistic Regression Mentioned in the Report
+A python notebook that includes the steps of pre-processing data, creating model and making predictions related to regularized logistic regression.
+
+
+
+
