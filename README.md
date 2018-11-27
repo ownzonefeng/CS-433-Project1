@@ -48,6 +48,8 @@ Contain the mandatory implementations of  6 regression models for this project
 ### `run.py`
 Contains full process of feature processing, model construction, and prediction. It generates the exact same CSV file submitted on Kaggle.
 
+# EPFL - Machine Learning Project 2
+
 
 
 
