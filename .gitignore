@@ -4,3 +4,5 @@ Project1/test.csv
 Project2/dataset_scores.pkl
 Project2/fr_original.pkl
 Project2/nr_metrics.pkl
+*.pkl
+*.zip
