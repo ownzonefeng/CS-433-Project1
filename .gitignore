@@ -6,3 +6,6 @@ Project2/fr_original.pkl
 Project2/nr_metrics.pkl
 *.pkl
 *.zip
+*.csv
+*.txt
+*.xlsx
