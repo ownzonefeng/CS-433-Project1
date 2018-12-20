@@ -71,7 +71,9 @@ The followings are some descriptions for the modules or functions we used or des
 -**`accuracy`**:calculate the accuracy of the model.`Input`: true values of labels, predicted values of labels given by model.`Return`: relative accuracy over the dataset.
 -**`rmse`**: calculate the root mean square error.`input`:true values of labels, predicted values of labels given by model. `Return`: root mean square error.
 -**`lcc`**: calculate the linear correlation coefficient .`input`:true values of labels, predicted values of labels given by model. `Return`: linear correlation coefficient .
--**`srocc`**: calculate the root mean square error.`input`:true values of labels, predicted values of labels given by model. `Return`: root mean square error.
+-**`srocc`**: calculate the Spearman's rank correlation coefficient.`input`:true values of labels, predicted values of labels given by model. `Return`: Spearman's rank correlation coefficient.
+-**`PCA`**:do linear dimensionality reduction to the data features.`input`
+
 
 
 
