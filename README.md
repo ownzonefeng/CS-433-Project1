@@ -57,7 +57,7 @@ Contains full process of feature processing, model construction, and prediction.
 **`Team Members`:** FENG Wentao, WANG Yunbei, ZHUANG Ying
 
 **Instructions**:
-1. Please make sure that the newest `Numpy`,`Pandas`,`sklearn`,`matplotlib` are installed. 
+1. Please make sure that the newest `Numpy`,`Pandas`,`sklearn`,`matplotlib` are installed. Make sure to install the latest `pydot`.
 2. Run `Data_preprocessing.ipynb` to get the processed feature/label data for regressors.
 3. Run `Regressor_original.ipynb`to get the results for Radom Forest Regressor.
 4. Run `SVRegressor.ipynb` to get the results for Support Vector Regressor.
