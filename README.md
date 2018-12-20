@@ -67,19 +67,19 @@ The followings are some descriptions for the modules or functions we used or des
 
 ## Defined functions
 
-- **`pooling`**: `Input`:features, power of the data for pooling method(defalut:4). `Return`:the features after pooling. 
+- **`pooling`**:pooling method for data preprocessing. `Input`:features, power of the data for pooling method(defalut:4). `Return`:the features after pooling. 
 - **`CV_Generator`**: Generate grouped cross-validation sets. `Input`: labels, features, labels grouped by video, number of iteration for re-shuffing(defalut:8),proporation of dataset to be put into test set(defalut:0.2). `Return`: a list of train index, a list of test index.
 - **`accuracy`**:calculate the accuracy of the model.`Input`: true values of labels, predicted values of labels given by model.`Return`: relative accuracy over the dataset.
-- **`rmse`**: calculate the root mean square error.`input`:true values of labels, predicted values of labels given by model. `Return`: root mean square error.
+- **`rmse`**: calculate the root mean square error.`Input`:true values of labels, predicted values of labels given by model. `Return`: root mean square error.
 - **`lcc`**: calculate the linear correlation coefficient .`input`:true values of labels, predicted values of labels given by model. `Return`: linear correlation coefficient .
 - **`srocc`**: calculate the Spearman's rank correlation coefficient.`input`:true values of labels, predicted values of labels given by model. `Return`: Spearman's rank correlation coefficient.
 
 ## External modules
 
-- **`PCA`**:do linear dimensionality reduction to the data features.`input`: the value of the final dimension after reduction.`Return`: the principal component analysis object
-- **`GridSearchCv`**:Exhaustive search over selected parameter values for an estimator.`Input`:estimator object,dictationary of parameter names as keys and lists of parameter settings,the grouped cross-validation defined before,using all processors during searching,set to getting more messages during searching,including training scores in the CV_results attribute,assign NAN to error scores,a list of strings to evaluate the predictions on the test set,refit the estimator using the best found root mean square error on the whole dataset,return the average score across folds. `Return`:the grid search with grouped cross-validation object.
+- **`PCA`**:do linear dimensionality reduction to the data features.`Input`: the value of the final dimension after reduction.`Return`: the principal component analysis object
+- **`GridSearchCv`**:exhaustive search over selected parameter values for an estimator.`Input`:estimator object,dictationary of parameter names as keys and lists of parameter settings,the grouped cross-validation defined before,using all processors during searching,set to getting more messages during searching,including training scores in the CV_results attribute,assign NAN to error scores,a list of strings to evaluate the predictions on the test set,refit the estimator using the best found root mean square error on the whole dataset,return the average score across folds. `Return`:the grid search with grouped cross-validation object.
 - **`SVR`**: support vector regression. `Input`: the kernel type to be used in the algorithm, degree of the polynomial kernel function,the standard deviation of the Gaussian function(gamma),tolerance for stopping criterion,penalty parameter for the error term(C),limitation for iteration for the function(defalut:3000).`Return`:support vector regression object.
-- **RadomForestRegressor**:random forest regression. 'Input':seed used by the random number generator(default:8),using all processors when executing the function,the number of trees in the forest,the function used to measure the quality of a split,the depth of the tree,the minimum number of samples required to split the internal node,the minimum number of samples required to be at the leaf node,the number of features to consider when finding the best split,whether using or not the bootstrap samples during the model construction,whether getting or not the message when executing the function. `Return`:random forest regression object.  
+- **`RadomForestRegressor`**:random forest regression. 'Input':seed used by the random number generator(default:8),using all processors when executing the function,the number of trees in the forest,the function used to measure the quality of a split,the depth of the tree,the minimum number of samples required to split the internal node,the minimum number of samples required to be at the leaf node,the number of features to consider when finding the best split,whether using or not the bootstrap samples during the model construction,whether getting or not the message when executing the function. `Return`:random forest regression object.  
 
 
 
