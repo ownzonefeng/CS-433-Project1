@@ -48,10 +48,27 @@ Contain the mandatory implementations of  6 regression models for this project
 ### `run.py`
 Contains full process of feature processing, model construction, and prediction. It generates the exact same CSV file submitted on Kaggle.
 
+
+
 # EPFL - Machine Learning Project 2
 
+**`Team`:** HuoGuo_Fondue
+
+**`Team Members`:** FENG Wentao, WANG Yunbei, ZHUANG Ying
+
+**Instructions**:
+1. Please make sure that the newest `Numpy`,`Pandas`,`sklearn`,`matplotlib` are installed. 
+2. Download `train.csv` and `test.csv` from [Kaggle competition](https://www.kaggle.com/c/epfml18-higgs/data), and put them in the same folder as `run.py`
+3. Run `run.py`
 
 
 
+The followings are some descriptions for the modules or functions we used or designed for this project.
+
+
+## External modules
+- **`CV_Generator`**: Generate grouped cross-validation sets. `Input`: labels, features, labels grouped by video, number of iteration for re-shuffing(defalut:8),proporation of dataset to be put into test set(defalut:0.2). `Return`: a list of train index, a list of test index.
+-**`accuracy`**:calculate the accuracy of the model.`Input`: true values of labels, predicted values of labels given by model.`Return`: relative accuracy over the dataset.
+-**``
 
 
