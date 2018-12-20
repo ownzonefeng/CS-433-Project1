@@ -69,6 +69,10 @@ The followings are some descriptions for the modules or functions we used or des
 ## External modules
 - **`CV_Generator`**: Generate grouped cross-validation sets. `Input`: labels, features, labels grouped by video, number of iteration for re-shuffing(defalut:8),proporation of dataset to be put into test set(defalut:0.2). `Return`: a list of train index, a list of test index.
 -**`accuracy`**:calculate the accuracy of the model.`Input`: true values of labels, predicted values of labels given by model.`Return`: relative accuracy over the dataset.
--**``
+-**`rmse`**: calculate the root mean square error.`input`:true values of labels, predicted values of labels given by model. `Return`: root mean square error.
+-**`lcc`**: calculate the linear correlation coefficient .`input`:true values of labels, predicted values of labels given by model. `Return`: linear correlation coefficient .
+-**`srocc`**: calculate the root mean square error.`input`:true values of labels, predicted values of labels given by model. `Return`: root mean square error.
+
+
 
 
