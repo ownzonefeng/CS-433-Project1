@@ -83,7 +83,7 @@ The followings are some descriptions for the modules or functions we used or des
 - **`RadomForestRegressor`**:random forest regression. `Input`:seed used by the random number generator(default:8),using all processors when executing the function,the number of trees in the forest,the function used to measure the quality of a split,the depth of the tree,the minimum number of samples required to split the internal node,the minimum number of samples required to be at the leaf node,the number of features to consider when finding the best split,whether using or not the bootstrap samples during the model construction,whether getting or not the message when executing the function. `Return`:random forest regression object.  
 
 ## Reference for external modules 
--**Scikit-learn**: Machine Learning in Python, Pedregosa et al., JMLR 12, pp. 2825-2830, 2011.
+-**`Scikit-learn`**: Machine Learning in Python, Pedregosa et al., JMLR 12, pp. 2825-2830, 2011.
 
 
 
