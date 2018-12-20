@@ -77,7 +77,7 @@ The followings are some descriptions for the modules or functions we used or des
 
 - **`PCA`**:do linear dimensionality reduction to the data features.`input`: the value of the final dimension after reduction.`Return`: the principal component analysis object
 - **`GridSearchCv`**:Exhaustive search over selected parameter values for an estimator.`Input`:estimator object,dictationary of parameter names as keys and lists of parameter settings,the grouped cross-validation defined before,using all processors during searching,set to getting more messages during searching,including training scores in the CV_results attribute,assign NAN to error scores,a list of strings to evaluate the predictions on the test set,refit the estimator using the best found root mean square error on the whole dataset,return the average score across folds. `Return`:the grid search with grouped cross-validation object.
-- ** `SVR`**: support vector regression  `Input`: specifies the kernel type to be used in the algorithm, define degree of the polynomial kernel function,the standard deviation of the Gaussian function(gamma),tolerance for stopping criterion,penalty parameter for the error term,limitation for iteration for the function.`Return`:support vector regression object.
+- ** `SVR` **: support vector regression  `Input`: specifies the kernel type to be used in the algorithm, define degree of the polynomial kernel function,the standard deviation of the Gaussian function(gamma),tolerance for stopping criterion,penalty parameter for the error term,limitation for iteration for the function.`Return`:support vector regression object.
 
 
 
